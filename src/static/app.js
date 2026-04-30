@@ -64,12 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const isDismissed =
       localStorage.getItem("announcementBannerDismissed") === "true";
     if (isDismissed) {
-      announcementBanner.classList.add("hidden");
+      announcementBanner.hidden = true;
       return;
     }
 
     dismissAnnouncementButton.addEventListener("click", () => {
-      announcementBanner.classList.add("hidden");
+      announcementBanner.hidden = true;
       localStorage.setItem("announcementBannerDismissed", "true");
     });
   }
