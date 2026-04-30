@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const activityInput = document.getElementById("activity");
   const closeRegistrationModal = document.querySelector(".close-modal");
+  const announcementBanner = document.getElementById("announcement-banner");
+  const dismissAnnouncementButton = document.getElementById(
+    "dismiss-announcement"
+  );
 
   // Search and filter elements
   const searchInput = document.getElementById("activity-search");
@@ -50,6 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
     afternoon: { start: "15:00", end: "18:00" }, // After school hours
     weekend: { days: ["Saturday", "Sunday"] }, // Weekend days
   };
+
+  // Initialize announcement banner state and interactions
+  function initializeAnnouncementBanner() {
+    if (!announcementBanner || !dismissAnnouncementButton) {
+      return;
+    }
+
+    const isDismissed =
+      localStorage.getItem("announcementBannerDismissed") === "true";
+    if (isDismissed) {
+      announcementBanner.classList.add("hidden");
+      return;
+    }
+
+    dismissAnnouncementButton.addEventListener("click", () => {
+      announcementBanner.classList.add("hidden");
+      localStorage.setItem("announcementBannerDismissed", "true");
+    });
+  }
 
   // Initialize filters from active elements
   function initializeFilters() {
@@ -862,6 +885,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Initialize app
+  initializeAnnouncementBanner();
   checkAuthentication();
   initializeFilters();
   fetchActivities();
